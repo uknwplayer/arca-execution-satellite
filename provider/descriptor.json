@@ -1,0 +1,32 @@
+{
+  "schema": "arca.execution-provider.v0.1",
+  "executor_id": "github-public-satellite",
+  "provider_type": "github-hosted-public-runner",
+  "repository": "uknwplayer/arca-execution-satellite",
+  "trust_state": "EXPERIMENTAL_VERIFIED",
+  "admission_state": "LAB_ADMITTED",
+  "visibility": "public",
+  "capabilities": [
+    "python.runtime",
+    "filesystem.ephemeral",
+    "artifact.upload",
+    "sha256",
+    "profile.smoke",
+    "profile.python-unit"
+  ],
+  "restrictions": {
+    "arbitrary_shell_input": false,
+    "private_repository_material": false,
+    "secrets": false,
+    "core_mutation": false,
+    "core_promotion": false,
+    "workflow_trigger": "manual-only"
+  },
+  "evidence": {
+    "proof_id": "public-executor-proof-001",
+    "run_id": "35510728727",
+    "run_number": 1,
+    "head_sha": "6e31d3f38b9325de1ad6412c35126d82da648222",
+    "conclusion": "success"
+  }
+}
