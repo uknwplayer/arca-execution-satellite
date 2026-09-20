@@ -1,0 +1,47 @@
+version: 2.1
+
+parameters:
+  arca_job_id:
+    type: string
+    default: manual-circleci-001
+  arca_profile:
+    type: string
+    default: smoke
+
+jobs:
+  bounded-public-executor:
+    docker:
+      - image: cimg/python:3.12
+    resource_class: small
+    environment:
+      ARCA_EXECUTOR_ID: circleci-public-linux
+    steps:
+      - checkout
+      - run:
+          name: Validate bounded profile
+          command: |
+            case "<< pipeline.parameters.arca_profile >>" in
+              smoke|python-unit) ;;
+              *) echo "Unsupported ARCA profile" >&2; exit 1 ;;
+            esac
+      - run:
+          name: Validate satellite contract
+          command: PYTHONPATH=. python -m unittest discover -s tests -v
+      - run:
+          name: Execute bounded public profile
+          command: |
+            PYTHONPATH=. python -m executor.run \
+              --profile "<< pipeline.parameters.arca_profile >>" \
+              --request-id "<< pipeline.parameters.arca_job_id >>" \
+              --output execution-result.json
+      - run:
+          name: Hash result
+          command: sha256sum execution-result.json
+      - store_artifacts:
+          path: execution-result.json
+          destination: execution-result.json
+
+workflows:
+  arca-public-executor:
+    jobs:
+      - bounded-public-executor
