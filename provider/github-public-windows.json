@@ -2,8 +2,8 @@
   "schema": "arca.execution-provider.v0.1",
   "executor_id": "github-public-windows",
   "provider_family": "github-git-queue",
-  "trust_state": "DECLARED",
-  "admission_state": "LAB_CANDIDATE",
+  "trust_state": "EXPERIMENTAL_VERIFIED",
+  "admission_state": "LAB_ADMITTED",
   "visibility": "public",
   "capabilities": [
     "python.runtime",
@@ -20,5 +20,16 @@
     "secrets": false,
     "core_mutation": false,
     "core_promotion": false
+  },
+  "evidence": {
+    "proof_id": "public-executor-proof-004-windows",
+    "request_id": "windows-smoke-001",
+    "dispatch_commit_sha": "6f2268c80594ce30da658669b5123ef202bd2668",
+    "run_id": "35511900077",
+    "conclusion": "success",
+    "request_sha256": "beea6aa2a6f8db9434087fa3cde169763be055d599cb6b294fba48a3fc7e309a",
+    "result_sha256": "6325b5466d05b99b64617dd8edda4ad0ce6403fbd5f57d392d29b35b37555af5",
+    "result_file_sha256": "1c00e86bd6ca60e7d1c66ae2922b921de25dd021d567685ebd17ff2478de2d6a",
+    "artifact_digest": "sha256:8e8b2518a913aa019cc22b19efa78f63042e08ea3b542bf1a5a69a01196ad83d"
   }
 }

@@ -20,5 +20,16 @@
     "secrets": false,
     "core_mutation": false,
     "core_promotion": false
+  },
+  "evidence": {
+    "proof_id": "public-executor-proof-004-linux",
+    "request_id": "linux-smoke-002",
+    "dispatch_commit_sha": "34500814ce699ef475cbb9bd2fc68229e3285e2f",
+    "run_id": "35511955476",
+    "conclusion": "success",
+    "request_sha256": "e6339e69ae50c44d1d85986b4b0102085552b5bf2a8b847ea4850e87d413bbbe",
+    "result_sha256": "d9eed596c909795334f34bb28f77cdd8d2ff40f383e7777d762067ab2892e7cf",
+    "result_file_sha256": "6168df573ae7ad4753c935bb2ed2bd6ef5e0ce5f50b316720e35f7d0da22f903",
+    "artifact_digest": "sha256:96dcb4e36ebe29a0d09c4da36bad8efdbb9ec67c5ed8d92bd0ed77f50fcd64f5"
   }
 }
