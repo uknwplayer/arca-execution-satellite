@@ -1,9 +1,11 @@
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
 
 from executor.queue import load_request
+from executor.run import execute_request
 
 
 class QueueTests(unittest.TestCase):
@@ -56,6 +58,26 @@ class QueueTests(unittest.TestCase):
             payload["shell"] = "caller-controlled"
             with self.assertRaises(ValueError):
                 load_request(self.write_request(root, "auto-001", payload))
+
+    def test_mesh_executor_identity_is_bound_by_controlled_environment(self):
+        previous = os.environ.get("ARCA_EXECUTOR_ID")
+        try:
+            os.environ["ARCA_EXECUTOR_ID"] = "github-satellite-linux"
+            with tempfile.TemporaryDirectory() as root:
+                request, metadata = load_request(
+                    self.write_request(root, "identity-001", self.base_request("identity-001"))
+                )
+                payload = execute_request(
+                    request,
+                    output=Path(root) / "result.json",
+                    request_metadata=metadata,
+                )
+            self.assertEqual(payload["executor_id"], "github-satellite-linux")
+        finally:
+            if previous is None:
+                os.environ.pop("ARCA_EXECUTOR_ID", None)
+            else:
+                os.environ["ARCA_EXECUTOR_ID"] = previous
 
 
 if __name__ == "__main__":
