@@ -27,6 +27,15 @@
     "run_id": "35510728727",
     "run_number": 1,
     "head_sha": "6e31d3f38b9325de1ad6412c35126d82da648222",
-    "conclusion": "success"
+    "conclusion": "success",
+    "python_unit_proof": {
+      "proof_id": "public-executor-proof-002",
+      "run_id": "35510862300",
+      "run_number": 2,
+      "head_sha": "6e13af7658c30e0ba43758dc9033bd3e72c4a77a",
+      "conclusion": "success",
+      "profile": "python-unit",
+      "request_id": "python-unit-001"
+    }
   }
 }
