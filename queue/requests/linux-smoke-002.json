@@ -1,0 +1,7 @@
+{
+  "schema": "arca.public-executor-request.v0.1",
+  "profile": "smoke",
+  "request_id": "linux-smoke-002",
+  "public_only": true,
+  "secrets_allowed": false
+}
