@@ -1,5 +1,5 @@
-name: ARCA Queued Public Executor
-run-name: ARCA Queue ${{ github.sha }}
+name: ARCA Queued Public Executor Linux
+run-name: ARCA Linux Queue ${{ github.sha }}
 
 on:
   push:
@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: arca-public-queue-${{ github.ref }}
+  group: arca-public-linux-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -50,6 +50,7 @@ jobs:
       - name: Execute queued bounded profile
         env:
           REQUEST_FILE: ${{ steps.request.outputs.path }}
+          ARCA_EXECUTOR_ID: github-public-linux
         run: |
           PYTHONPATH=. python -m executor.queue \
             --request-file "$REQUEST_FILE" \
@@ -61,7 +62,7 @@ jobs:
       - name: Upload result artifact
         uses: actions/upload-artifact@v4
         with:
-          name: arca-queued-executor-result-${{ github.run_id }}
+          name: arca-linux-executor-result-${{ github.run_id }}
           path: execution-result.json
           if-no-files-found: error
           retention-days: 7

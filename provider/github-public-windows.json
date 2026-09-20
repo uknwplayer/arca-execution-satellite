@@ -1,0 +1,24 @@
+{
+  "schema": "arca.execution-provider.v0.1",
+  "executor_id": "github-public-windows",
+  "provider_family": "github-git-queue",
+  "trust_state": "DECLARED",
+  "admission_state": "LAB_CANDIDATE",
+  "visibility": "public",
+  "capabilities": [
+    "python.runtime",
+    "os.windows",
+    "artifact.upload",
+    "sha256",
+    "profile.smoke",
+    "profile.python-unit"
+  ],
+  "queue_prefix": "queue/windows/requests",
+  "restrictions": {
+    "arbitrary_shell_input": false,
+    "private_repository_material": false,
+    "secrets": false,
+    "core_mutation": false,
+    "core_promotion": false
+  }
+}

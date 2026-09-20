@@ -43,7 +43,7 @@ def execute_request(
     finished = datetime.now(timezone.utc)
     payload = {
         "schema": "arca.public-executor-result.v0.1",
-        "executor_id": "github-public-satellite",
+        "executor_id": os.getenv("ARCA_EXECUTOR_ID", "github-public-satellite"),
         "request_id": request.request_id,
         "profile": request.profile,
         "git_sha": os.getenv("GITHUB_SHA", "local"),
