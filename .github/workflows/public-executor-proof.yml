@@ -1,4 +1,5 @@
 name: ARCA Public Executor Proof
+run-name: ARCA Exec ${{ inputs.request_id }} [${{ inputs.profile }}]
 
 on:
   workflow_dispatch:
