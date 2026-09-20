@@ -1,0 +1,16 @@
+{
+  "schema": "arca.public-investigative-executor-request.v0.2",
+  "profile": "investigative-public-v0.1",
+  "request_id": "preflight-investigative-v02-a-001",
+  "public_only": true,
+  "secrets_allowed": false,
+  "task_class": "TYPOLOGY_MATCHING",
+  "task_input": {
+    "signals": [
+      "RF-SYNTH-1"
+    ],
+    "typology_indicators": [
+      "RF-SYNTH-1"
+    ]
+  }
+}
