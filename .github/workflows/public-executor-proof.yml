@@ -1,0 +1,59 @@
+name: ARCA Public Executor Proof
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: Bounded execution profile
+        required: true
+        type: choice
+        options:
+          - smoke
+          - python-unit
+        default: smoke
+      request_id:
+        description: Public request identifier
+        required: true
+        default: manual-smoke-001
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arca-public-executor-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout public satellite
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate satellite contract
+        run: PYTHONPATH=. python -m unittest discover -s tests -v
+      - name: Execute bounded public profile
+        env:
+          ARCA_PROFILE: ${{ inputs.profile }}
+          ARCA_REQUEST_ID: ${{ inputs.request_id }}
+        run: |
+          PYTHONPATH=. python -m executor.run \
+            --profile "$ARCA_PROFILE" \
+            --request-id "$ARCA_REQUEST_ID" \
+            --output execution-result.json
+      - name: Hash result
+        run: sha256sum execution-result.json
+      - name: Upload result artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: arca-public-executor-result-${{ github.run_id }}
+          path: execution-result.json
+          if-no-files-found: error
+          retention-days: 7
