@@ -1,0 +1,13 @@
+{
+  "profile": "investigative-public-v0.1",
+  "public_only": true,
+  "request_id": "investigative-mesh006-live-35539487516.locators",
+  "schema": "arca.public-investigative-executor-request.v0.2",
+  "secrets_allowed": false,
+  "task_class": "SOURCE_LOCATOR_VERIFICATION",
+  "task_input": {
+    "locators": [
+      "https://pncp.gov.br/"
+    ]
+  }
+}
