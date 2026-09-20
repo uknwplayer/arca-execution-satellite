@@ -12,7 +12,9 @@
     "artifact.upload",
     "sha256",
     "profile.smoke",
-    "profile.python-unit"
+    "profile.python-unit",
+    "dispatch.git-queue",
+    "correlation.commit-sha"
   ],
   "restrictions": {
     "arbitrary_shell_input": false,
@@ -36,6 +38,14 @@
       "conclusion": "success",
       "profile": "python-unit",
       "request_id": "python-unit-001"
+    },
+    "git_queue_auto_dispatch_proof": {
+      "proof_id": "public-executor-proof-003",
+      "request_id": "auto-dispatch-001",
+      "dispatch_commit_sha": "ee1dcbfd4e6864aea54c3d90741811f29bc8e21c",
+      "run_id": "35511368977",
+      "conclusion": "success",
+      "trigger": "push:path-filtered-git-queue"
     }
   }
 }
