@@ -31,14 +31,12 @@ def run_profile(profile: str) -> dict:
     raise ValueError(profile)
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--profile", required=True)
-    parser.add_argument("--request-id", required=True)
-    parser.add_argument("--output", default="execution-result.json")
-    args = parser.parse_args()
-
-    request = ExecutionRequest(profile=args.profile, request_id=args.request_id)
+def execute_request(
+    request: ExecutionRequest,
+    *,
+    output: str,
+    request_metadata: dict | None = None,
+) -> dict:
     request.validate()
     started = datetime.now(timezone.utc)
     result = run_profile(request.profile)
@@ -56,20 +54,34 @@ def main() -> int:
         "finished_at": finished.isoformat(),
         "result": result,
     }
+    if request_metadata is not None:
+        payload["request"] = request_metadata
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
     payload["result_sha256"] = hashlib.sha256(encoded).hexdigest()
-    Path(args.output).write_text(
+    Path(output).write_text(
         json.dumps(payload, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
+    return payload
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--profile", required=True)
+    parser.add_argument("--request-id", required=True)
+    parser.add_argument("--output", default="execution-result.json")
+    args = parser.parse_args()
+
+    request = ExecutionRequest(profile=args.profile, request_id=args.request_id)
+    payload = execute_request(request, output=args.output)
     print(json.dumps({
-        "ok": result["exit_code"] == 0,
+        "ok": payload["result"]["exit_code"] == 0,
         "executor_id": payload["executor_id"],
         "request_id": payload["request_id"],
         "profile": payload["profile"],
         "result_sha256": payload["result_sha256"],
     }, sort_keys=True))
-    return int(result["exit_code"])
+    return int(payload["result"]["exit_code"])
 
 
 if __name__ == "__main__":
